@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sookie's Bistro Problem 3</title>
+    <link
+      rel="stylesheet"
+      href="https://pyscript.net/releases/2023.03.1/pyscript.css"
+    />
+    <script
+      defer
+      src="https://pyscript.net/releases/2023.03.1/pyscript.js"
+    ></script>
+  </head>
+  <body>
+    <py-config>
+      terminal = true
+      [[fetch]]
+        files = ["employee_hours.txt"]
+      </py-config>
+    </py-config>
+    
+    <py-repl>
+filename = 'employee_hours.txt'
+
+with open(filename,'r') as file:
+    data = file.readlines()
+pay_rate = 20
+employees = []
+hours_worked = []
+
+for line in data:
+    line = line.strip() 
+    line = line.split()
+    
+    # obtain employee name and their hours
+    name = line[0]
+    
+    # need to convert string to int for hours
+    hours = 0
+    for i in range(1, len(line)):
+        hours += int(line[i])
+
+    print(f'{name} {hours} ${hours * pay_rate}')
+    employees.append(name)
+    hours_worked.append(hours)
+
+# compute average hours worked by all employees
+avg = sum(hours_worked) / len(employees)
+print(f'The average hours worked by all employees is {avg}')
+
+# Display employees who worked more than average hours
+employees_above_average = []
+for i in range(len(hours_worked)):
+    if hours_worked[i] > avg:
+        employees_above_average.append(employees[i])
+        
+print(f"{', '.join(employees_above_average)} worked more than {avg} hours per week")
+    </py-repl>
+    
+  </body>
+</html>
